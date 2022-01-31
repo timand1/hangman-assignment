@@ -31,6 +31,7 @@ let correctLetters = [];
 const maxAttempts = 5;
 let incorrectGuess = 0;
 let wrongLetters = [];
+gameTime(); // Start timer
 
 function randomWord() {
     const randomInput = Math.floor(Math.random() * (words.length));    
@@ -128,6 +129,7 @@ function endGame() {
 
 let timeleft = 60;
 let countdownElem =  document.querySelector(".countdown");
+function gameTime() {
 const gameTimer = setInterval(function(){
   if(timeleft <= 0){
     clearInterval(gameTimer);
@@ -137,10 +139,11 @@ const gameTimer = setInterval(function(){
   }
   timeleft--;
 }, 1000);
+}
 
-function resetGame() {
+function resetGame() {  
     wrongMsgElem.innerHTML = ""; 
-    timeleft = 60;    
+    timeleft = 60; 
     lives = 5;
     correctLetters = [];
     guessedLetters = [];
@@ -160,6 +163,7 @@ function resetGame() {
     gamesPlayedElem.innerHTML = `Games played : ${gamesPlayed}`;
     wonGamesElem.innerHTML = `Won games : ${wonGames}`;
     livesElem.innerHTML = `Lives : ${lives - incorrectGuess}`
+    countdownElem.innerHTML = `Time left : ${timeleft} s`;
 };
 
 const resetButton = document.querySelector('.reset-btn');
