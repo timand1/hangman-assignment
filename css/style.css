@@ -75,8 +75,8 @@ body {
 
 .score {
     border: none;
-    box-shadow: 0 0 17px 3px rgb(28, 173, 113),
-                0 0 4px 2px rgb(28, 173, 113);
+    box-shadow: 0 0 17px 3px #116642,
+                0 0 4px 2px #116642;
 }
 
 .correct-letter {
