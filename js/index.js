@@ -14,8 +14,15 @@ Du ska enbart kunna gissa på en bokstav i taget.
 Ordet får inte vara hårdkodat i Javascript-filen när den ska jämföras
 */
 
-// Word array
 const words = ['array', 'object', 'event', 'class', 'element', 'function', 'variable', 'arrow', 'loop'];
+const wrongMsgElem = document.querySelector('.wrong-message');
+const wrongElem = document.querySelector('.wrong-letters');
+const gamesPlayedElem = document.querySelector('.games');
+const wonGamesElem = document.querySelector('.wins');
+const livesElem = document.querySelector('.lives');
+let wonGames = 0;
+let gamesPlayed = 0;
+let lives = 5;
 let guessedLetters = [];
 let guessedLetter;
 let finalWord = document.querySelector('.words')
@@ -24,7 +31,6 @@ let correctLetters = [];
 const maxAttempts = 5;
 let incorrectGuess = 0;
 let wrongLetters = [];
-
 
 function randomWord() {
     const randomInput = Math.floor(Math.random() * (words.length));    
@@ -41,9 +47,9 @@ function randomWord() {
     return words[randomInput].toUpperCase();
 };
 
-const guessElem = document.querySelector('.guess')
 // User letter guess
-window.addEventListener('keypress', (event) => {  
+window.addEventListener('keypress', (event) => { 
+    wrongMsgElem.innerHTML = ""; 
     if(event.key >= 48 || event.key <= 57) {
         return false;
     }  
@@ -57,34 +63,36 @@ function checkGuess(guessedLetter) {
         guessedLetters.push(guessedLetter);        
         compareLetters(guessedLetter)
     } else {
-        console.log('You have already guessed that letter')
+        wrongMsgElem.innerHTML = `You have already guessed ${guessedLetter}`;
         return
     }
 };
 
-const testing = document.querySelectorAll('.correct-letter');
-const correctLetterElem = document.querySelector('.correct');
-const wrongElem = document.querySelector('.wrong-letters');
 function compareLetters() {
+    const correctWordLetters = document.querySelectorAll('.correct-letter');
     for(let i = 0; i < correctWord.length; i++ ) {
         if(correctWord[i].includes(guessedLetter)) {
             correctLetters.push(guessedLetter);                
-                testing[i].classList.remove('hide');
+            correctWordLetters[i].classList.remove('hide');
+            correctWordLetters[i].parentNode.classList.add('score')
         }       
     } if(!correctWord.includes(guessedLetter)) {
         incorrectGuess++;
         wrongLetters.push(guessedLetter)
         wrongElem.innerHTML = wrongLetters.join(" ");
+        livesElem.innerHTML = `Lives : ${lives - incorrectGuess}`
         showHangman();
     }   
         winGame();     
 };
 
 function winGame() {
-    if(correctLetters.length == correctWord.length) {
+    if(correctLetters.length == correctWord.length) {        
         setTimeout(endGame, 1000);
     } else if(incorrectGuess == maxAttempts) {
         setTimeout(endGame, 1000);
+    } else {
+        return
     }
 };
 
@@ -104,51 +112,61 @@ function showHangman() {
 
 let endTemplate;
 const overlayGame = document.querySelector('.overlay')
+const overlayText = document.querySelector('.overlay-text')
 function endGame() {
-    if(incorrectGuess >= maxAttempts || timeleft == 0) {
-        endTemplate = 
-        `
-        <p>You suck!</p>
-        <p>The correct word was ${correctWord}.</p>
-        `;
-    } else {
-        endTemplate = 
-        `
-        <p>You won!</p>
-        <p>You had ${incorrectGuess} wrong letters.</p>
-        <p>You had ${timeleft} seconds left!</p>
-        `;
+    if(overlayGame.classList.contains('hidden')) {
+        if(incorrectGuess >= maxAttempts || timeleft == 0) {  
+            overlayText.innerHTML = `You lost! The correct word was ${correctWord}.` 
+        } else {
+            wonGames++;
+            overlayText.innerHTML = `You won! You had ${incorrectGuess} wrong letters and ${timeleft} seconds left!`;
+        }
     }
-     overlayGame.classList.toggle('hidden');
-     overlayGame.insertAdjacentHTML('afterbegin', endTemplate);
+    gamesPlayed++;
+    overlayGame.classList.remove('hidden');
 }
 
 let timeleft = 60;
+let countdownElem =  document.querySelector(".countdown");
 const gameTimer = setInterval(function(){
   if(timeleft <= 0){
     clearInterval(gameTimer);
     endGame()
   } else {
-    document.querySelector(".countdown").innerHTML = timeleft + " seconds remaining";
+    countdownElem.innerHTML = timeleft + " seconds remaining";
   }
-  timeleft -= 1;
+  timeleft--;
 }, 1000);
 
 function resetGame() {
-    correctWord = randomWord();
+    wrongMsgElem.innerHTML = ""; 
+    timeleft = 60;    
+    lives = 5;
     correctLetters = [];
     guessedLetters = [];
-    incorrectGuess = 0;
     wrongLetters = [];
-    overlayGame.innerHTML = "";
-    overlayGame.classList.toggle('hidden');
+    incorrectGuess = 0;    
+    overlayText.innerHTML = "";
+    countdownElem.innerHTML = "";    
+    wrongElem.innerHTML = "";
     finalWord.innerHTML = "";
+    overlayGame.classList.add('hidden');   
     correctWord = randomWord();
-}
+    document.querySelector('figure').classList.remove('scaffold');
+    document.querySelector('figure').classList.remove('head');
+    document.querySelector('figure').classList.remove('body');
+    document.querySelector('figure').classList.remove('arms');
+    document.querySelector('figure').classList.remove('legs');    
+    gamesPlayedElem.innerHTML = `Games played : ${gamesPlayed}`;
+    wonGamesElem.innerHTML = `Won games : ${wonGames}`;
+};
 
 const resetButton = document.querySelector('.reset-btn');
 resetButton.addEventListener('click', () => {
     resetGame()
-})
+});
+
+
+
 
 
