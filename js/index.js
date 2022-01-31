@@ -133,7 +133,7 @@ const gameTimer = setInterval(function(){
     clearInterval(gameTimer);
     endGame()
   } else {
-    countdownElem.innerHTML = timeleft + " seconds remaining";
+    countdownElem.innerHTML = `Time left : ${timeleft} s`;
   }
   timeleft--;
 }, 1000);

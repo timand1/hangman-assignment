@@ -51,6 +51,10 @@ body {
     margin-bottom: 0;
 }
 
+.game-info {
+    justify-self: flex-end;
+}
+
 .statistic {
     font-size: 1.4rem;
 }
