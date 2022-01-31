@@ -73,18 +73,17 @@ function compareLetters() {
         gameEnd();     
 };
 
+// End of game 
 function gameEnd() {    
-    if(correctLetters.length == correctWord.length) {       
+    if(correctLetters.length == correctWord.length || lives == lost) {       
         window.removeEventListener('keypress', keyboardInput); 
-        setTimeout(gameOverlay, 1000);
-    } else if(lives == lost) {
-        window.removeEventListener('keypress', keyboardInput);
         setTimeout(gameOverlay, 1000);
     } else {
         return
     }
 };
 
+// Adding pieces of the hangman depending on how many lives the user have
 function showHangman() {
     if(lives == 4) {
         document.querySelector('figure').classList.add('scaffold');
@@ -99,6 +98,7 @@ function showHangman() {
     } 
 };
 
+// End of game - add overlay
 let endTemplate;
 const overlayGame = document.querySelector('.overlay')
 const overlayText = document.querySelector('.overlay-text')
@@ -115,19 +115,20 @@ function gameOverlay() {
     overlayGame.classList.remove('hidden');
 };
 
+// Timer function
 let timeleft = 60;
 let countdownElem =  document.querySelector(".countdown");
 function gameTime() {
-const gameTimer = setInterval(function(){
-    if(timeleft <= lost){
-        clearInterval(gameTimer);
-        gameOverlay();        
-    } else if(!overlayGame.classList.contains('hidden')) {
-        clearInterval(gameTimer);
-    } else {
-        countdownElem.innerHTML = `Time left : ${timeleft} s`;
-    }
-    timeleft--;
+    const gameTimer = setInterval(function() {
+        if(timeleft <= lost){
+            clearInterval(gameTimer);
+            gameOverlay();        
+        } else if(!overlayGame.classList.contains('hidden')) {
+            clearInterval(gameTimer);
+        } else {
+            countdownElem.innerHTML = `Time left : ${timeleft} s`;
+        }
+        timeleft--;
     }, 1000);
 };
 
