@@ -108,13 +108,8 @@ function gameOverlay() {
             overlayText.innerHTML = `You lost! The correct word was ${correctWord}.` 
         } else {
             wonGames++;
-<<<<<<< Updated upstream
-            overlayText.innerHTML = `You won! You had ${incorrectGuess} wrong guesses and ${timeleft} seconds left!`;
-        }
-=======
             overlayText.innerHTML = `You won! You had ${lives} lives and ${timeleft} seconds left!`;
         }        
->>>>>>> Stashed changes
     }
     gamesPlayed++;    
     overlayGame.classList.remove('hidden');
