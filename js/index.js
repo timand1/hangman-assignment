@@ -132,7 +132,7 @@ let timeleft = 60;
 let countdownElem =  document.querySelector(".countdown");
 function gameTime() {
 const gameTimer = setInterval(function(){
-  if(timeleft <= 0 && incorrectGuess < 5){
+  if(timeleft <= 0){
         clearInterval(gameTimer);
         endGame();        
   } else if(!overlayGame.classList.contains('hidden')) {
