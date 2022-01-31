@@ -114,7 +114,7 @@ function showHangman() {
 let endTemplate;
 const overlayGame = document.querySelector('.overlay')
 const overlayText = document.querySelector('.overlay-text')
-function endGame() {
+function endGame() {    
     if(overlayGame.classList.contains('hidden')) {
         if(incorrectGuess >= maxAttempts || timeleft == 0) {  
             overlayText.innerHTML = `You lost! The correct word was ${correctWord}.` 
@@ -128,24 +128,27 @@ function endGame() {
     overlayGame.classList.remove('hidden');
 }
 
-let timeleft = 5;
+let timeleft = 60;
 let countdownElem =  document.querySelector(".countdown");
 function gameTime() {
 const gameTimer = setInterval(function(){
-  if(timeleft <= 0){
-      if(incorrectGuess < 5) {
-        endGame()
-        }
-  } else {
+  if(timeleft <= 0 && incorrectGuess < 5){
+        clearInterval(gameTimer);
+        endGame();        
+  } else if(!overlayGame.classList.contains('hidden')) {
+        clearInterval(gameTimer);
+  }
+  else {
     countdownElem.innerHTML = `Time left : ${timeleft} s`;
   }
   timeleft--;
 }, 1000);
 }
 
-function resetGame() {  
-    wrongMsgElem.innerHTML = ""; 
-    timeleft = 5; 
+function resetGame() {   
+    timeleft = 60;    
+    gameTime();    
+    wrongMsgElem.innerHTML = "";     
     lives = 5;
     correctLetters = [];
     guessedLetters = [];
