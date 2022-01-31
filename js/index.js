@@ -159,6 +159,7 @@ function resetGame() {
     document.querySelector('figure').classList.remove('legs');    
     gamesPlayedElem.innerHTML = `Games played : ${gamesPlayed}`;
     wonGamesElem.innerHTML = `Won games : ${wonGames}`;
+    livesElem.innerHTML = `Lives : ${lives - incorrectGuess}`
 };
 
 const resetButton = document.querySelector('.reset-btn');
