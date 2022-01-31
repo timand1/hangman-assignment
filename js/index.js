@@ -51,7 +51,7 @@ function randomWord() {
 // User letter guess
 window.addEventListener('keypress', (event) => { 
     wrongMsgElem.innerHTML = ""; 
-    if(event.key >= 48 || event.key <= 57 || incorrectGuess == maxAttempts) {
+    if(event.key >= 48 || event.key <= 57 || event.key === 'Enter' || incorrectGuess == maxAttempts) {
         return false;
     }  
     guessedLetter = event.key.toUpperCase();
