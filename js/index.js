@@ -11,23 +11,8 @@ Ifall användaren inte hinner gissa rätt ska en ”Du förlorade”-skärm visa
 
 Du ska enbart kunna gissa på en bokstav i taget. 
 
-Ordet får inte vara hårdkodat i Javascript-filen när den ska jämföras - words-array
+Ordet får inte vara hårdkodat i Javascript-filen när den ska jämföras
 */
-
-
-function showHangman() {
-    if(incorrectGuess == 1) {
-        document.querySelector('figure').classList.add('scaffold');
-    } else if(incorrectGuess == 2) {
-        document.querySelector('figure').classList.add('head');
-    } else if(incorrectGuess == 3) {
-        document.querySelector('figure').classList.add('body');
-    } else if(incorrectGuess == 4) {
-        document.querySelector('figure').classList.add('arms');
-    } else if(incorrectGuess == 5) {
-        document.querySelector('figure').classList.add('legs');
-    } 
-}
 
 // Word array
 const words = ['array', 'object', 'event', 'class', 'element', 'function', 'variable', 'arrow', 'loop'];
@@ -90,12 +75,10 @@ function compareLetters() {
         incorrectGuess++;
         wrongLetters.push(guessedLetter)
         wrongElem.innerHTML = wrongLetters.join(" ");
-        showHangman()
+        showHangman();
     }   
         winGame();     
 };
-
-
 
 function winGame() {
     if(correctLetters.length == correctWord.length) {
@@ -103,7 +86,21 @@ function winGame() {
     } else if(incorrectGuess == maxAttempts) {
         setTimeout(endGame, 1000);
     }
-}
+};
+
+function showHangman() {
+    if(incorrectGuess == 1) {
+        document.querySelector('figure').classList.add('scaffold');
+    } else if(incorrectGuess == 2) {
+        document.querySelector('figure').classList.add('head');
+    } else if(incorrectGuess == 3) {
+        document.querySelector('figure').classList.add('body');
+    } else if(incorrectGuess == 4) {
+        document.querySelector('figure').classList.add('arms');
+    } else if(incorrectGuess == 5) {
+        document.querySelector('figure').classList.add('legs');
+    } 
+};
 
 let endTemplate;
 const overlayGame = document.querySelector('.overlay')
@@ -143,6 +140,7 @@ function resetGame() {
     guessedLetters = [];
     incorrectGuess = 0;
     wrongLetters = [];
+    overlayGame.innerHTML = "";
     overlayGame.classList.toggle('hidden');
     finalWord.innerHTML = "";
     correctWord = randomWord();
@@ -150,8 +148,7 @@ function resetGame() {
 
 const resetButton = document.querySelector('.reset-btn');
 resetButton.addEventListener('click', () => {
-    window.location.reload(); // FUNKAR DET SÅ FUNAKR DET
-    // resetGame()
+    resetGame()
 })
 
 
