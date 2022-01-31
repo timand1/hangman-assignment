@@ -51,7 +51,7 @@ function randomWord() {
 // User letter guess
 window.addEventListener('keypress', (event) => { 
     wrongMsgElem.innerHTML = ""; 
-    if(event.key >= 48 || event.key <= 57 || event.key === 'Enter' || incorrectGuess == maxAttempts) {
+    if(event.key >= 48 || event.key <= 57 || event.key === 'Enter' || incorrectGuess == maxAttempts || !overlayGame.classList.contains('hidden') ) {
         return false;
     }  
     guessedLetter = event.key.toUpperCase();
@@ -124,15 +124,18 @@ function endGame() {
         }
     }
     gamesPlayed++;
+    
     overlayGame.classList.remove('hidden');
 }
 
-let timeleft = 60;
+let timeleft = 5;
 let countdownElem =  document.querySelector(".countdown");
 function gameTime() {
 const gameTimer = setInterval(function(){
   if(timeleft <= 0){
-    endGame()
+      if(incorrectGuess < 5) {
+        endGame()
+        }
   } else {
     countdownElem.innerHTML = `Time left : ${timeleft} s`;
   }
@@ -142,7 +145,7 @@ const gameTimer = setInterval(function(){
 
 function resetGame() {  
     wrongMsgElem.innerHTML = ""; 
-    timeleft = 60; 
+    timeleft = 5; 
     lives = 5;
     correctLetters = [];
     guessedLetters = [];
