@@ -64,7 +64,7 @@ function checkGuess(guessedLetter) {
         guessedLetters.push(guessedLetter);        
         compareLetters(guessedLetter)
     } else {
-        wrongMsgElem.innerHTML = `You have already guessed ${guessedLetter}`;
+        wrongMsgElem.innerHTML = `DOH! You have already guessed ${guessedLetter}!`;
         return
     }
 };
@@ -120,7 +120,7 @@ function endGame() {
             overlayText.innerHTML = `You lost! The correct word was ${correctWord}.` 
         } else {
             wonGames++;
-            overlayText.innerHTML = `You won! You had ${incorrectGuess} wrong letters and ${timeleft} seconds left!`;
+            overlayText.innerHTML = `You won! You had ${incorrectGuess} wrong guesses and ${timeleft} seconds left!`;
         }
     }
     gamesPlayed++;
