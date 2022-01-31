@@ -23,6 +23,7 @@ body {
 .wrapper {
     max-width: 1000px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
@@ -201,4 +202,18 @@ body {
 }
 
 @media only screen and (max-width: 768px) {
+}
+
+.guess {
+    font-size: 5rem;
+}
+
+.correct {
+    font-size: 3rem;
+    color: red;
+}
+
+.correct-container {
+    display: flex;
+    
 }
