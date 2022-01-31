@@ -132,7 +132,6 @@ let countdownElem =  document.querySelector(".countdown");
 function gameTime() {
 const gameTimer = setInterval(function(){
   if(timeleft <= 0){
-    clearInterval(gameTimer);
     endGame()
   } else {
     countdownElem.innerHTML = `Time left : ${timeleft} s`;
