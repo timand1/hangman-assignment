@@ -44,6 +44,7 @@ body {
 .hud p {
     margin-bottom: 0;
 }
+
 .headline {
     flex: 2;
     text-align: center;
@@ -54,41 +55,23 @@ body {
     margin-bottom: 0;
 }
 
-.statistic, .game-info {
+.hud-info, .hud-statistic {
     flex: 1;
     font-size: 1.4rem;
 }
 
-.statistic {
+.hud-statistic {
     display: flex;
     align-items: flex-end;
     flex-direction: column;
 }
-/* .earth {
-z-index: -1;
-padding: 0;
-position: absolute;
-bottom: -420px;
-left: 10%;
-width: 80%;
-height: 700px;
-border-radius: 100%;
-background: green;
-background-image:url('https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.virginiagreenlawncare.com%2Fwp-content%2Fuploads%2F2015%2F07%2Fgreen-lawn.jpg&f=1');
-background-blend-mode: lighten;
-} */
 
-.words {
+.correct-container {
     display: flex;
     gap: 1rem;
 }
 
-.correct-container {
-    display: flex;  
-    
-}
-
-.correct-letter--container {
+.correct-container--letters {
     text-align: center;
     min-width: 80px;
     border: 2px solid rgb(26, 26, 85);
@@ -97,6 +80,10 @@ background-blend-mode: lighten;
     margin-top: 3rem;
     margin-bottom: 2rem;
     /* background-color: #a2aab3; */
+}
+
+.hide {
+    visibility: hidden;
 }
 
 .score {
@@ -109,7 +96,7 @@ background-blend-mode: lighten;
     font-size: 1.5rem;
 }
 
-.wrong--container {
+.wrong-container {
     display: flex;
     flex-direction: column;
 
@@ -126,15 +113,6 @@ background-blend-mode: lighten;
     font-size: 1.2rem;
     margin-top: 0;
     text-align: center;
-
-}
-
-.hide {
-    visibility: hidden;
-}
-
-.show {
-    visibility: visible;
 }
 
 .overlay {
@@ -158,7 +136,7 @@ background-blend-mode: lighten;
     display: none;
 }
 
-.reset-btn {
+.btn {
     border: none; 
     position: relative;
     border-radius: 5px;
@@ -177,19 +155,4 @@ background-blend-mode: lighten;
 .reset-btn:active {
     background:rgba(47, 79, 79, 0.4);
     box-shadow:none;
-}
-
-
-  @media only screen and (max-width: 600px) {
-    body {
-        height: 80vh;
-    }
-
-    h1 {
-        text-align: center;
-        letter-spacing: 6px;
-    }
-}
-
-@media only screen and (max-width: 768px) {
 }

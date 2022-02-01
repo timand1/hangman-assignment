@@ -10,10 +10,11 @@ let lives = 5;
 const lost = 0;
 let guessedLetters = [];
 let guessedLetter;
-let finalWord = document.querySelector('.words')
-let correctWord = randomWord();
+let finalWord = document.querySelector('.correct-container')
 let correctLetters = [];
 let wrongLetters = [];
+
+let correctWord = randomWord();
 gameTime(); // Start timer
 
 function randomWord() {
@@ -22,7 +23,7 @@ function randomWord() {
     for(let i = 0; i < words[randomInput].length; i++) {
         let template = 
         `
-        <article class="correct-letter--container"> 
+        <article class="correct-container--letters"> 
         <p class="correct-letter hide">${wordCorrect[i]}</p>
         </article>
         `;
@@ -35,77 +36,76 @@ function randomWord() {
 window.addEventListener('keypress', keyboardInput); 
 function keyboardInput() {
     wrongMsgElem.innerHTML = ""; 
-    if(event.keyCode >= 97 && event.keyCode <= 122 ) {
+    if(event.keyCode >= 97 && event.keyCode <= 122 ) { // Only accept alphabetic letters (english)
         guessedLetter = event.key.toUpperCase();
         checkGuess(guessedLetter);   
-        }
-        else {
-            return false
-        }  
-}
+    } else {
+        return false;
+    } 
+};
 
 // Function to not include the same letter multiple times
 function checkGuess(guessedLetter) {
     if(!guessedLetters.includes(guessedLetter)) {
         guessedLetters.push(guessedLetter);        
-        compareLetters(guessedLetter)
+        compareLetters(guessedLetter);
     } else {
         wrongMsgElem.innerHTML = `DOH! You have already guessed ${guessedLetter}!`;
-        return
     }
 };
 
+// Comparing user letter with the correct word letters
 function compareLetters() {
     const correctWordLetters = document.querySelectorAll('.correct-letter');
     for(let i = 0; i < correctWord.length; i++ ) {
         if(correctWord[i].includes(guessedLetter)) {
             correctLetters.push(guessedLetter);                
             correctWordLetters[i].classList.remove('hide');
-            correctWordLetters[i].parentNode.classList.add('score')
+            correctWordLetters[i].parentNode.classList.add('score');
         }       
     } if(!correctWord.includes(guessedLetter)) {
         lives--;
         wrongLetters.push(guessedLetter)
         wrongElem.innerHTML = wrongLetters.join(" ");
-        livesElem.innerHTML = `Lives : ${lives}`
+        livesElem.innerHTML = `Lives : ${lives}`;
         showHangman();
     }   
-        gameEnd();     
+    gameEnd();     
 };
 
-// End of game 
+// Check if the user has the correct word or no more lives
 function gameEnd() {    
     if(correctLetters.length == correctWord.length || lives == lost) {       
         window.removeEventListener('keypress', keyboardInput); 
         setTimeout(gameOverlay, 1000);
     } else {
-        return
+        return false;
     }
 };
 
 // Adding pieces of the hangman depending on how many lives the user have
+const figureElem = document.querySelector('figure');
 function showHangman() {
     if(lives == 4) {
-        document.querySelector('figure').classList.add('scaffold');
+        figureElem.classList.add('scaffold');
     } else if(lives == 3) {
-        document.querySelector('figure').classList.add('head');
+        figureElem.classList.add('head');
     } else if(lives == 2) {
-        document.querySelector('figure').classList.add('body');
+        figureElem.classList.add('body');
     } else if(lives == 1) {
-        document.querySelector('figure').classList.add('arms');
+        figureElem.classList.add('arms');
     } else if(lives == 0) {
-        document.querySelector('figure').classList.add('legs');
+        figureElem.classList.add('legs');
     } 
 };
 
 // End of game - add overlay
-let endTemplate;
 const overlayGame = document.querySelector('.overlay')
 const overlayText = document.querySelector('.overlay-text')
 function gameOverlay() {        
     if(overlayGame.classList.contains('hidden')) {
         if(lives <= lost || timeleft == 0) {  
-            overlayText.innerHTML = `You lost! The correct word was ${correctWord}.` 
+            overlayText.innerHTML = `You lost! The correct word was ${correctWord}.`;
         } else {
             wonGames++;
             overlayText.innerHTML = `You won! You had ${lives} lives and ${timeleft} seconds left!`;
@@ -132,7 +132,7 @@ function gameTime() {
     }, 1000);
 };
 
-// Resetting the game - restoring all variables, classes and innerHTML to its origin
+// Resetting the game - restoring all variables, classes and innerHTML to their origin
 function resetGame() {   
     window.addEventListener('keypress', keyboardInput); 
     timeleft = 60;    
@@ -159,7 +159,7 @@ function resetGame() {
     countdownElem.innerHTML = `Time left : ${timeleft} s`;
 };
 
-const resetButton = document.querySelector('.reset-btn');
+const resetButton = document.querySelector('.btn--reset');
 resetButton.addEventListener('click', () => {
-    resetGame()
+    resetGame();
 });
