@@ -1,4 +1,4 @@
-const words = ['array', 'object', 'event', 'class', 'element', 'function', 'variable', 'arrow', 'loop'];
+const words = ['array', 'object', 'event', 'class', 'element', 'function', 'variable', 'arrow', 'loop', 'grid', 'html', 'flexbox', 'undefined', 'constant', 'string', 'selector', 'argument'];
 const wrongMsgElem = document.querySelector('.wrong-message');
 const wrongElem = document.querySelector('.wrong-letters');
 const gamesPlayedElem = document.querySelector('.games');
@@ -65,7 +65,7 @@ function compareLetters() {
         }       
     } if(!correctWord.includes(guessedLetter)) {
         lives--;
-        wrongLetters.push(guessedLetter)
+        wrongLetters.push(guessedLetter);
         wrongElem.innerHTML = wrongLetters.join(" ");
         livesElem.innerHTML = `Lives : ${lives}`;
         showHangman();
