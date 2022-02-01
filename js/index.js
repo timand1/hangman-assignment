@@ -1,4 +1,5 @@
-const words = ['array', 'object', 'event', 'class', 'element', 'function', 'variable', 'arrow', 'loop'];
+const words = ['array', 'object', 'event', 'class', 'element', 'function', 'variable', 'arrow', 'loop', 'grid', 'html',
+                'flexbox', 'undefined', 'constant', 'string', 'selector', 'argument'];
 const wrongMsgElem = document.querySelector('.wrong-message');
 const wrongElem = document.querySelector('.wrong-letters');
 const gamesPlayedElem = document.querySelector('.games');
@@ -40,7 +41,7 @@ function keyboardInput() {
         checkGuess(guessedLetter);   
         }
         else {
-            return false
+            return false;
         }  
 }
 
@@ -48,10 +49,10 @@ function keyboardInput() {
 function checkGuess(guessedLetter) {
     if(!guessedLetters.includes(guessedLetter)) {
         guessedLetters.push(guessedLetter);        
-        compareLetters(guessedLetter)
+        compareLetters(guessedLetter);
     } else {
         wrongMsgElem.innerHTML = `DOH! You have already guessed ${guessedLetter}!`;
-        return
+        return;
     }
 };
 
@@ -65,7 +66,7 @@ function compareLetters() {
         }       
     } if(!correctWord.includes(guessedLetter)) {
         lives--;
-        wrongLetters.push(guessedLetter)
+        wrongLetters.push(guessedLetter);
         wrongElem.innerHTML = wrongLetters.join(" ");
         livesElem.innerHTML = `Lives : ${lives}`
         showHangman();
@@ -79,7 +80,7 @@ function gameEnd() {
         window.removeEventListener('keypress', keyboardInput); 
         setTimeout(gameOverlay, 1000);
     } else {
-        return
+        return;
     }
 };
 
@@ -100,8 +101,8 @@ function showHangman() {
 
 // End of game - add overlay
 let endTemplate;
-const overlayGame = document.querySelector('.overlay')
-const overlayText = document.querySelector('.overlay-text')
+const overlayGame = document.querySelector('.overlay');
+const overlayText = document.querySelector('.overlay-text');
 function gameOverlay() {        
     if(overlayGame.classList.contains('hidden')) {
         if(lives <= lost || timeleft == 0) {  
@@ -161,5 +162,5 @@ function resetGame() {
 
 const resetButton = document.querySelector('.reset-btn');
 resetButton.addEventListener('click', () => {
-    resetGame()
+    resetGame();
 });

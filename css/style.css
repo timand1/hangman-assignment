@@ -95,7 +95,7 @@ background-blend-mode: lighten;
     border-radius: 20% 80% 29% 71% / 17% 28% 72% 83%;
     box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.25);
     margin-top: 3rem;
-    margin-bottom: 2rem;
+    /* margin-bottom: 2rem; */
     /* background-color: #a2aab3; */
 }
 
