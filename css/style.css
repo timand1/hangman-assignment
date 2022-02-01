@@ -144,11 +144,11 @@ body {
     box-shadow: 4px 5px 2px rgba(255, 255, 255, 0.54);
 }
 
-.reset-btn:hover {
+.btn:hover {
     background:rgb(25, 67, 92);
 }
 
-.reset-btn:active {
+.btn:active {
     background:rgba(47, 79, 79, 0.4);
     box-shadow:none;
 }
